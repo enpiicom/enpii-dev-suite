@@ -1,3 +1,4 @@
+
 # Nginx, PHP-FPM, MySql for development - Enpii Team
 
 ## Overview
@@ -24,7 +25,7 @@ All requisites should be available for your distribution. The most important are
 Check if `docker-compose` is already installed by entering the following command : 
 
 ```sh
-which docker-compose
+$ which docker-compose
 ```
 
 Check Docker Compose compatibility :
@@ -36,50 +37,58 @@ Check Docker Compose compatibility :
 - Clone or download the project
 - Change directory to the specified directory (default to `enpii-dev-suite`)
 ```sh
-cd <path/to/project-directory>
+$ cd <path/to/project-directory>
 # Init the .env file, then you can repair value needed to be updated, or you can copy `.env.example` -> `.env`
-./scripts/init-env-file.sh 
+$ ./scripts/init-env-file.sh 
 
 # Init dev suite, you can add first option for the namespace of dev suite to overwrite the one in .env file
-./scripts/init-dev-suite.sh
+$ ./scripts/init-dev-suite.sh
+#if you can't execute it For Mac user, it's better to create it inside your home  
+#e.g <path/to/project-directory> = ~/workspace/enpii-dev-suite/  
+$ chmod +x /scripts/init-dev-suite.sh
 ```
-`chmod +x /scripts/init-dev-suite.sh` if you can't execute it
-For Mac user, it's better to create it inside your home, e.g `<path/to/project-directory>` = `~/workspace/enpii-dev-suite/`
 - Repair params on `docker-compose.yml` of `etc/*.conf` or `etc/*.ini` files to match your local
 - Run Docker Compose
 ```sh
-docker-compose up -d
+$ docker-compose up -d
 ```
 - Wait for several mins and you'll have:
   - Nginx (work as a webserver)
   - PHP-FPM (PHP execution server)
   - MySql
   - phpmyadmin (should connect to mysql via host host.docker.internal)
-  - We include MySQL in docker containers but because we believe database is important and you may lose you db once docker failed. Using a database server on local machine is out proposal: use `host.docker.internal` (for mac), `10.0.2.2` (for docker machine) for the hostname to connect to your main machine.
-
+  - We include MySQL in docker containers but because we believe database is important and you may lose you database once docker fails. Using a database server on local machine is our proposal: use `host.docker.internal` (for mac), `10.0.2.2` (for docker machine) for the hostname to connect to your main machine.
+- To check for the containers port: 
+```
+$ docker-compose ps
+```
+**For example:**
+![check for the containers port](https://lh5.googleusercontent.com/vS4lUZ4XI3FsMGxH3c_gTxXnr-iwdofS4RW3rY64ujslGe3PAxmlCn4SL7QCT3AY2-W_FiVtJd9sjfZkR0vBTOe4PWjyiYuQdS4752MVlZ1x7jovsPUZqvQ7ERtP1efMFqEqZypV)
+That means you can access phpmyadmin as port 11901 on your localhost.
+Or we can use Docker Desktop to check it.
 ## Using
 
 ### PHP related commands
 #### PHP composer
 - Run the PHP composer container which your project folder on local machine bound to `/var/www/html` of composer container
 ```bash 
-docker-compose run --rm -v /path/to/your/project/folder:/var/www/html php72_cli composer update
+$ docker-compose run --rm -v /path/to/your/project/folder:/var/www/html php72_cli composer update
 ```
 
 
 #### WP CLI
 ```bash
-docker-compose run --rm -v /path/to/your/project/folder:/var/www/html php72_cli wp plugin list
+$ docker-compose run --rm -v /path/to/your/project/folder:/var/www/html php72_cli wp plugin list
 ```
 
 #### Running phpunit
 ```bash
-docker-compose run --rm -v /path/to/your/test/folder:/var/www/html php72_cli phpunit
+$ docker-compose run --rm -v /path/to/your/test/folder:/var/www/html php72_cli phpunit
 ```
 
 #### Running codeception test
 ```bash
-docker-compose run --rm -v /path/to/your/test/folder:/var/www/html php72_cli codecept
+$ docker-compose run --rm -v /path/to/your/test/folder:/var/www/html php72_cli codecept
 ```
 
 Similar thing if you want to use php_latest (use php_latest_cli instead)
@@ -89,6 +98,15 @@ Similar thing if you want to use php_latest (use php_latest_cli instead)
 - `phpssdbadmin` is the GUI manager of SSDB, http://<domain-to-instance>:${PHPSSDBADMIN_WEB_EXPOSING_PORT}, user: `admin`, password: `password`
 
 ___
+## Common Issues
+
+```
+```
+Error| Solution 
+--- | --- | 
+Error while running Docker Compose ```$ docker-compose up -d```|  Please make sure you have uninstalled XAMPP and closed any running docker that makes port not available.**
+```
+```
 
 ## Help us
 
