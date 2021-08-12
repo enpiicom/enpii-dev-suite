@@ -41,14 +41,13 @@ cd <path/to/project-directory>
 ./scripts/init-env-file.sh 
 
 # Init dev suite, you can add first option for the namespace of dev suite to overwrite the one in .env file
-./scripts/init-dev-suite.sh
+sudo ./scripts/init-dev-suite.sh
 ```
 `chmod +x /scripts/init-dev-suite.sh` if you can't execute it
-For Mac user, it's better to create it inside your home, e.g `<path/to/project-directory>` = `~/workspace/enpii-dev-suite/`
-- Repair params on `docker-compose.yml` of `etc/*.conf` or `etc/*.ini` files to match your local
+For Linux
 - Run Docker Compose
 ```sh
-docker-compose up -d
+sudo docker-compose up -d
 ```
 - Wait for several mins and you'll have:
   - Nginx (work as a webserver)
@@ -63,23 +62,23 @@ docker-compose up -d
 #### PHP composer
 - Run the PHP composer container which your project folder on local machine bound to `/var/www/html` of composer container
 ```bash 
-docker-compose run --rm -v /path/to/your/project/folder:/var/www/html php72_cli composer update
+sudo docker-compose run --rm -v /path/to/your/project/folder:/var/www/html php72_cli composer update
 ```
 
 
 #### WP CLI
 ```bash
-docker-compose run --rm -v /path/to/your/project/folder:/var/www/html php72_cli wp plugin list
+sudo docker-compose run --rm -v /path/to/your/project/folder:/var/www/html php72_cli wp plugin list
 ```
 
 #### Running phpunit
 ```bash
-docker-compose run --rm -v /path/to/your/test/folder:/var/www/html php72_cli phpunit
+sudo docker-compose run --rm -v /path/to/your/test/folder:/var/www/html php72_cli phpunit
 ```
 
 #### Running codeception test
 ```bash
-docker-compose run --rm -v /path/to/your/test/folder:/var/www/html php72_cli codecept
+sudo docker-compose run --rm -v /path/to/your/test/folder:/var/www/html php72_cli codecept
 ```
 
 Similar thing if you want to use php_latest (use php_latest_cli instead)
@@ -92,4 +91,4 @@ ___
 
 ## Help us
 
-Any thought, feedback or issues, please put it here https://github.com/npbtrac/enpii-dev-suite/issues
+Any thought, feedback or issues, please put it here https://github.com/ChienNguyenDac/enpii-dev-suite/issues
