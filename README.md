@@ -35,6 +35,19 @@ Check Docker Compose compatibility :
 ## Installation
 - Clone or download the project
 - Change directory to the specified directory (default to `enpii-dev-suite`)
+- With Linux, you can use command line without `sudo` for docker, by:
+```sh
+# Create the docker group.
+sudo groupadd docker
+
+# Add your user to the docker group.
+sudo usermod -aG docker ${USER}
+
+# Login and verify that can run docker commands without sudo.
+su -l ${USER}
+``` 
+Go to installation:
+
 ```sh
 cd <path/to/project-directory>
 # Init the .env file, then you can repair value needed to be updated, or you can copy `.env.example` -> `.env`
@@ -56,6 +69,16 @@ docker-compose up -d
   - MySql
   - phpmyadmin (should connect to mysql via host host.docker.internal)
   - We include MySQL in docker containers but because we believe database is important and you may lose you db once docker failed. Using a database server on local machine is out proposal: use `host.docker.internal` (for mac), `10.0.2.2` (for docker machine) for the hostname to connect to your main machine.
+
+- If you have ERROR that cannot start service nginx_main. Because apache2 (or other service , you can find) use same port with it 
+You must stop that service by
+```sh
+sudo service apache2 stop
+```
+And rerun Docker Compose.
+
+## How to verify things working
+  https://docs.google.com/document/d/1XOnTa_-c37IWCLhh-JJaE-7GpW5FEkI_a72tsluBJak/edit?usp=sharing
 
 ## Using
 
