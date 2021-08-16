@@ -71,6 +71,7 @@ docker-compose up -d
   - We include MySQL in docker containers but because we believe database is important and you may lose you db once docker failed. Using a database server on local machine is out proposal: use `host.docker.internal` (for mac), `10.0.2.2` (for docker machine) for the hostname to connect to your main machine.
 
 
+
 ## Using
 
 ### PHP related commands
