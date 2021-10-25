@@ -1,14 +1,3 @@
-# Nginx, PHP-FPM, MySql for development - Enpii Team
-
-## Overview
-This is a development suite for development with PHP. It can be easily deployed with 1 or 2 commands. It includes:
-- Nginx (`nginx_main` for serving as a proxy server)
-- PHP-FPM (`php72_fpm`, `php_latest_fpm` for executing PHP scripts via FastCGI of Nginx)
-- MySQL (`mysql57`, `mysql80` database, we have 5.7 for the stable and 8.0 is latest one)
-- PhpMyAdmin (`phpmyadmin` tool for managing database)
-
-
-
 ___
 
 ## Install prerequisites
@@ -70,41 +59,18 @@ docker-compose up -d
   - phpmyadmin (should connect to mysql via host host.docker.internal)
   - We include MySQL in docker containers but because we believe database is important and you may lose you db once docker failed. Using a database server on local machine is out proposal: use `host.docker.internal` (for mac), `10.0.2.2` (for docker machine) for the hostname to connect to your main machine.
 
-
-
-## Using
-
-### PHP related commands
-#### PHP composer
-- Run the PHP composer container which your project folder on local machine bound to `/var/www/html` of composer container
-```bash 
-docker-compose run --rm -v /path/to/your/project/folder:/var/www/html php72_cli composer update
-```
-
-
-#### WP CLI
-```bash
-docker-compose run --rm -v /path/to/your/project/folder:/var/www/html php72_cli wp plugin list
-```
-
-#### Running phpunit
-```bash
-docker-compose run --rm -v /path/to/your/test/folder:/var/www/html php72_cli phpunit
-```
-
-#### Running codeception test
-```bash
-docker-compose run --rm -v /path/to/your/test/folder:/var/www/html php72_cli codecept
-```
-
-Similar thing if you want to use php_latest (use php_latest_cli instead)
-
-### SSDB (Redis like service but running on SSD)
-- `ssdb` is the instance
-- `phpssdbadmin` is the GUI manager of SSDB, http://<domain-to-instance>:${PHPSSDBADMIN_WEB_EXPOSING_PORT}, user: `admin`, password: `password`
-
 ___
 
-## Help us
+## Troubleshooting
 
-Any thought, feedback or issues, please put it here https://github.com/npbtrac/enpii-dev-suite/issues
+### 1. Cannot start service nginx_main
+
+If you have ERROR that cannot start service nginx_main. Because apache2 (or other service , you can find) use same port with it 
+You must stop that service by
+```sh
+sudo service apache2 stop
+```
+And rerun by:
+```sh
+docker-compose up -d
+```
