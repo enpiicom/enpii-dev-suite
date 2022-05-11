@@ -4,7 +4,7 @@ location ~ \.php$ {
     add_header X_PATH_INFO $fastcgi_path_info;
     try_files $uri =404;
     fastcgi_split_path_info ^(.+\.php)(/.+)$;
-    fastcgi_pass backend_php;
+    fastcgi_pass local_php74;
     fastcgi_index index.php;
     include fastcgi_params;
     fastcgi_param SCRIPT_FILENAME $php_fpm_document_root$fastcgi_script_name;

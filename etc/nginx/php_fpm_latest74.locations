@@ -1,0 +1,17 @@
+location ~ \.php$ {
+    add_header X_PHP_FPM_DOCUMENT_ROOT $php_fpm_document_root;
+    add_header X_PHP_SCRIPT_NAME $fastcgi_script_name;
+    add_header X_PATH_INFO $fastcgi_path_info;
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header 'Access-Control-Max-Age' 3600;
+    add_header 'Access-Control-Allow-Methods' 'POST, PUT, GET, OPTIONS, DELETE, PATCH';
+    add_header 'Access-Control-Expose-Headers' 'Content-Length';
+    add_header 'Access-Control-Allow-Headers' 'Origin, Content-Type, X-Requested-With, Authorization, Accept, User-Agent, Host, Content-Length, Referrer-Policy, Referer' always;
+    try_files $uri =404;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_pass backend_php;
+    fastcgi_index index.php;
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $php_fpm_document_root$fastcgi_script_name;
+    fastcgi_param PATH_INFO $fastcgi_path_info;
+}
