@@ -3,6 +3,8 @@
 .DS_Store
 
 # Config file
+docker-compose.yml
+docker-compose.override.yml
 .env
 
 # Application
